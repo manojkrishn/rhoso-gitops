@@ -1,0 +1,200 @@
+cat > ~/values-secret.yaml <<'EOF'
+---
+# Secrets documentation:
+# https://validatedpatterns.io/learn/secrets-management-in-the-validated-patterns-framework/
+#
+# RHOSO secrets documentation:
+# https://docs.redhat.com/en/documentation/red_hat_openstack_services_on_openshift/18.0/html/deploying_red_hat_openstack_services_on_openshift/assembly_preparing-rhocp-for-rhoso#proc_providing-secure-access-to-the-RHOSO-services_preparing
+#
+# Schema:
+# https://github.com/validatedpatterns/rhvp.cluster_utils/tree/main/roles/vault_utils#values-secret-file-format
+# Template:
+# https://raw.githubusercontent.com/validatedpatterns-sandbox/rhoso-gitops/e887e5f813433d50bc4ea9e5edf78fb3c4eeb753/values-secret.yaml.template
+version: "2.0"
+
+bootstrap_secrets:
+
+  - name: dataplane-ansible-ssh-private-key-secret
+    targetNamespaces:
+      - openstack
+    fields:
+      - name: ssh-privatekey
+        path: ~/dataplane-ansible-ssh-privatekey
+        onMissingValue: error
+      - name: ssh-publickey
+        path: ~/dataplane-ansible-ssh-publickey
+        onMissingValue: error
+      - name: authorized_keys
+        path: ~/dataplane-ansible-ssh-publickey
+        onMissingValue: error
+
+  - name: libvirt-secret
+    targetNamespaces:
+      - openstack
+    fields:
+      - name: LibvirtPassword
+        value: "openstack"
+        onMissingValue: error
+
+  - name: nova-migration-ssh-key
+    targetNamespaces:
+      - openstack
+    fields:
+      - name: ssh-privatekey
+        path: ~/nova-migration-ssh-privatekey
+        onMissingValue: error
+      - name: ssh-publickey
+        path: ~/nova-migration-ssh-publickey
+        onMissingValue: error
+
+  - name: osp-secret
+    targetNamespaces:
+      - openstack
+    fields:
+      - name: AdminPassword
+        value: "openstack"
+        onMissingValue: error
+      - name: AodhDatabasePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: AodhPassword
+        value: "openstack"
+        onMissingValue: error
+      - name: BarbicanDatabasePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: BarbicanPassword
+        value: "openstack"
+        onMissingValue: error
+      - name: BarbicanSimpleCryptoKEK
+        value: "openstack"
+        onMissingValue: error
+      - name: CeilometerPassword
+        value: "openstack"
+        onMissingValue: error
+      - name: CinderDatabasePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: CinderPassword
+        value: "openstack"
+        onMissingValue: error
+      - name: DatabasePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: DbRootPassword
+        value: "openstack"
+        onMissingValue: error
+      - name: DesignateDatabasePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: DesignatePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: GlanceDatabasePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: GlancePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: HeatAuthEncryptionKey
+        value: "LQAgfMCHTxyTVQEab49MKCNaS5GBLyFd"
+        onMissingValue: error
+      - name: HeatDatabasePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: HeatPassword
+        value: "openstack"
+        onMissingValue: error
+      - name: IronicDatabasePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: IronicInspectorDatabasePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: IronicInspectorPassword
+        value: "openstack"
+        onMissingValue: error
+      - name: IronicPassword
+        value: "openstack"
+        onMissingValue: error
+      - name: KeystoneDatabasePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: ManilaDatabasePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: ManilaPassword
+        value: "openstack"
+        onMissingValue: error
+      - name: MetadataSecret
+        value: "openstack"
+        onMissingValue: error
+      - name: NeutronDatabasePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: NeutronPassword
+        value: "openstack"
+        onMissingValue: error
+      - name: NovaAPIDatabasePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: NovaCell0DatabasePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: NovaCell1DatabasePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: NovaPassword
+        value: "openstack"
+        onMissingValue: error
+      - name: OctaviaDatabasePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: OctaviaHeartbeatKey
+        value: "openstack"
+        onMissingValue: error
+      - name: OctaviaPassword
+        value: "openstack"
+        onMissingValue: error
+      - name: PlacementDatabasePassword
+        value: "openstack"
+        onMissingValue: error
+      - name: PlacementPassword
+        value: "openstack"
+        onMissingValue: error
+      - name: SwiftPassword
+        value: "openstack"
+        onMissingValue: error
+      - name: WatcherPassword
+        value: "openstack"
+        onMissingValue: error
+
+  - name: cinder-nfs-config
+    targetNamespaces:
+      - openstack
+    fields:
+      - name: nfs-cinder-conf
+        value: |
+          [nfs]
+          nas_host=172.18.0.13
+          nas_share_path=/nfs/cinder
+        onMissingValue: error
+
+  - name: redhat-registry
+    targetNamespaces:
+      - openstack
+    fields:
+      - name: edpm_container_registry_logins
+        value: '{"registry.redhat.io": {"manojkp265": "Valentinorossi@39"}}'
+        onMissingValue: error
+
+  - name: subscription-manager
+    targetNamespaces:
+      - openstack
+    fields:
+      - name: rhc_auth
+        value: '{"login": {"username": "manojkp265", "password": "Valentinorossi@39"}}'
+        onMissingValue: error
+
+secrets: []
+EOF
